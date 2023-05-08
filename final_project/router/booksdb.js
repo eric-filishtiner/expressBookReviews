@@ -1,3 +1,6 @@
+const express = require('express');
+const router = express.Router();
+const axios = require('axios');
 let books = {
       1: {"author": "Chinua Achebe","title": "Things Fall Apart", "reviews": {} },
       2: {"author": "Hans Christian Andersen","title": "Fairy tales", "reviews": {} },
@@ -10,5 +13,8 @@ let books = {
       9: {"author": "Honor\u00e9 de Balzac","title": "Le P\u00e8re Goriot", "reviews": {} },
       10: {"author": "Samuel Beckett","title": "Molloy, Malone Dies, The Unnamable, the trilogy", "reviews": {} }
 }
-
-module.exports=books;
+router.get('/', async (req, res) => {
+res.send(books)
+});
+module.exports = router;
+//module.exports=books;

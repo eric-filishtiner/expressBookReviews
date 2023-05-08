@@ -49,11 +49,21 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   let isbn = req.params.isbn;
   let review = req.query.review;
   let username = req.session.authorization["username"];
-  let full_review = {"username":username,"review":review};
-  let review_num = Object.keys(books[isbn]["reviews"]).length;
-  books[isbn]["reviews"][review_num] = full_review;
+  //let full_review = {"username":username,"review":review};
+  //let review_num = Object.keys(books[isbn]["reviews"]).length;
+  books[isbn]["reviews"][username] = review;
   res.send(books);
 });
+// Add a book review
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    //Write your code here
+    let isbn = req.params.isbn;
+    let username = req.session.authorization["username"];
+    //let full_review = {"username":username,"review":review};
+    //let review_num = Object.keys(books[isbn]["reviews"]).length;
+    delete books[isbn]["reviews"][username];
+    res.send(books);
+  });
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
