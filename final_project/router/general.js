@@ -84,11 +84,11 @@ public_users.get('/author/:author',function (req, res) {
         for(let ii = 0; ii < keys.length; ii++){
         if(the_books[keys[ii]]["author"] === req.params.author)
         {
-            book_array.push({"isbn":keys[ii], "author":req.params.author, "reviews":the_books[keys[ii]]["reviews"]})
+            book_array.push({"isbn":keys[ii], "title":the_books[keys[ii]]["title"], "reviews":the_books[keys[ii]]["reviews"]})
         }
     }
     let final_array = [];
-    final_array.push({"booksbytitle":book_array});
+    final_array.push({"booksbyauthor":book_array});
   res.send(final_array[0]);
   })
   .catch(error => {
@@ -115,10 +115,12 @@ public_users.get('/title/:title', async function (req, res) {
   for(let ii = 0; ii < keys.length; ii++){
     if(the_books[keys[ii]]["title"] === title)
     {
-        book_array.push(the_books[keys[ii]])
+        book_array.push({"isbn":keys[ii], "author":the_books[keys[ii]]["author"], "reviews":the_books[keys[ii]]["reviews"]})
     }
   }
-  res.send(book_array);
+  let final_array = [];
+  final_array.push({"booksbytitle":book_array});
+res.send(final_array[0]);
   //return res.status(300).json({message: "Yet to be implemented"});
 });
 
