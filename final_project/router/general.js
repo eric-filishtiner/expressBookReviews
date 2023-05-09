@@ -80,13 +80,16 @@ public_users.get('/author/:author',function (req, res) {
         //res.send(response.data[req.params.isbn])
         let keys = Object.keys(the_books);
         let book_array = [];
+        //the_books[keys[ii]]
         for(let ii = 0; ii < keys.length; ii++){
         if(the_books[keys[ii]]["author"] === req.params.author)
         {
-            book_array.push(the_books[keys[ii]])
+            book_array.push({"isbn":keys[ii], "author":req.params.author, "reviews":the_books[keys[ii]]["reviews"]})
         }
     }
-  res.send(book_array);
+    let final_array = [];
+    final_array.push({"booksbytitle":book_array});
+  res.send(final_array[0]);
   })
   .catch(error => {
       res.status(500).send('Failed to get books');
